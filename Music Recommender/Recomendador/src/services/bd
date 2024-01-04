@@ -1,0 +1,18 @@
+CREATE TABLE usuario (
+    idUser SERIAL PRIMARY KEY,
+    Nombre VARCHAR(100),
+    edad INTEGER,
+    correo VARCHAR(100),
+    contraseña VARCHAR(100),
+    api_key VARCHAR(100)
+);
+
+-- Creación de la tabla 'playlist'
+CREATE TABLE playlist (
+    id_playlist SERIAL PRIMARY KEY,
+    crea VARCHAR(100),
+    URL VARCHAR(255),
+    fecha DATE,
+    titulo VARCHAR(100),
+    id_usuario INTEGER REFERENCES usuario(idUser)
+);

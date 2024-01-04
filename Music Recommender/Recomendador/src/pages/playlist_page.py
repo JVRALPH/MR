@@ -45,9 +45,10 @@ form_songs = Container(
                         content=Container(
                             Column([
                                 btns.btn_gen_recom,
+                                Listas.list_recom,
                             ],
                             alignment=ft.alignment.top_center),
-                            padding=padding.only(left=150,top=15),
+                            padding=padding.only(left=50,top=15),
                         ),
                     )
                 ),

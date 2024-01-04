@@ -8,6 +8,12 @@ list_my_songs = ft.ListView(
         auto_scroll=True,
 )
 
+list_recom = ft.ListView(
+        expand=1, 
+        spacing=15, 
+        padding=20, 
+        auto_scroll=True,
+)
 #Estilo de tabla
 table_info = DataTable( 
         heading_row_color='black',
