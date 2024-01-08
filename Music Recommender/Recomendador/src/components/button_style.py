@@ -1,15 +1,20 @@
+# Este script contiene definiciones de estilos y componentes de botones utilizados en la aplicación.
+# Cada botón tiene un propósito específico, desde iniciar sesión hasta obtener canciones o generar recomendaciones.
 import flet as ft
 from flet import *
 from math import pi
 
-    #Estilos de botones
-btn_logout=IconButton(
+# Estilos de botones
+# Botón para cerrar sesión
+btn_logout = IconButton(
     icon=ft.icons.LOGOUT_OUTLINED,
     icon_color="blue400",
     icon_size=20,
-    tooltip="Cerrar Sesion",
+    tooltip="Cerrar Sesión",
 )
-btn_get_songs=ElevatedButton(
+
+# Botón para obtener canciones
+btn_get_songs = ElevatedButton(
     content=Text(
         "Obtener canciones",
         color='white',
@@ -18,15 +23,15 @@ btn_get_songs=ElevatedButton(
         shape=RoundedRectangleBorder(radius=10),
     ),
     bgcolor={
-        #ft.MaterialState.DEFAULT:ft.colors.BLACK,
-        ft.MaterialState.DEFAULT:ft.colors.BLACK,   
-        ft.MaterialState.HOVERED:"#080808",     
+        ft.MaterialState.DEFAULT: ft.colors.BLACK,
+        ft.MaterialState.HOVERED: "#080808",     
     },
     width=600,
     height=50,
 )
 
-btn_gen_recom=ElevatedButton(
+# Botón para generar recomendaciones
+btn_gen_recom = ElevatedButton(
     content=Text(
         "Generar recomendaciones",
         color='white',
@@ -35,17 +40,17 @@ btn_gen_recom=ElevatedButton(
         shape=RoundedRectangleBorder(radius=10),
     ),
     bgcolor={
-        #ft.MaterialState.DEFAULT:ft.colors.BLACK,
-        ft.MaterialState.DEFAULT:ft.colors.BLACK,   
-        ft.MaterialState.HOVERED:"#080808",     
+        ft.MaterialState.DEFAULT: ft.colors.BLACK,
+        ft.MaterialState.HOVERED: "#080808",     
     },
     width=600,
     height=50,
 )
 
-btn_startSession=ElevatedButton(
+# Botón para iniciar sesión
+btn_startSession = ElevatedButton(
     content=Text(
-        "Iniciar Sesion",
+        "Iniciar Sesión",
         color='white',
     ),
     width=300,
@@ -54,14 +59,13 @@ btn_startSession=ElevatedButton(
         shape=RoundedRectangleBorder(radius=10),
     ),
     bgcolor={
-        
-        #ft.MaterialState.DEFAULT:ft.colors.BLACK,
-        ft.MaterialState.DEFAULT:ft.colors.BLACK,   
-        ft.MaterialState.HOVERED:"#080808",     
+        ft.MaterialState.DEFAULT: ft.colors.BLACK,
+        ft.MaterialState.HOVERED: "#080808",     
     }
 )
 
-btn_register=ElevatedButton(
+# Botón de registro con Spotify
+btn_register = ElevatedButton(
     tooltip="Click",
     content=Text(
         "INGRESAR CON SPOTIFY",
@@ -74,23 +78,25 @@ btn_register=ElevatedButton(
         shape=RoundedRectangleBorder(radius=10),
     ),
     bgcolor={
-        ft.MaterialState.DEFAULT:"#199D47",   
-        ft.MaterialState.HOVERED:"#189644",     
+        ft.MaterialState.DEFAULT: "#199D47",
+        ft.MaterialState.HOVERED: "#189644",     
     }
 )
 
-btn_confirm=ElevatedButton(
+# Botón de confirmación "Sí"
+btn_confirm = ElevatedButton(
     text="Si, quiero salir",
 )
 
-btn_deny=ElevatedButton(
+# Botón de confirmación "No"
+btn_deny = ElevatedButton(
     text="No",
 )
 
-#Estilo de dialogo de confirmacion para salir
+# Estilo de diálogo de confirmación para salir
 confirm_dialog = ft.AlertDialog(
     modal=False,
-    title=ft.Text("Confirmacion"),
+    title=ft.Text("Confirmación"),
     content=ft.Text("¿Realmente quieres salir de esta aplicación?"),
     actions=[
         btn_confirm,

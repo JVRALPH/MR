@@ -1,3 +1,6 @@
+# Este módulo contiene funciones y configuraciones para manejar la autenticación y la interacción con la API de Spotify, incluyendo la obtención de información del usuario, la gestión de tokens de acceso, la generación de recomendaciones, entre otras acciones.
+
+# Importaciones necesarias
 import re
 import sys
 import os
@@ -14,8 +17,10 @@ from services import AuthRequest
 from flet.auth import OAuthProvider
 from dotenv import load_dotenv
 
-
+# Cargar variables de entorno
 load_dotenv()
+
+# Configuración del proveedor OAuth para la autenticación con Spotify
 provider = OAuthProvider(
     client_id=os.getenv("CLIENT_ID"),
     client_secret=os.getenv("CLIENT_SECRET"),
@@ -26,6 +31,8 @@ provider = OAuthProvider(
     user_endpoint="https://api.spotify.com/v1/me",
     user_id_fn=lambda u: u["id"],
 )
+
+# Clase para gestionar los tokens de acceso
 class TokenManager:
     def __init__(self):
         self.access_token = None
@@ -35,9 +42,11 @@ class TokenManager:
 
     def get_token(self):
         return self.access_token
-    
+
+# Instancia del gestor de tokens
 token_manager = TokenManager()
 
+# Función para mostrar un diálogo de error en la interfaz de usuario
 def show_error_dialog(page):
     page.go('/')
     alert_title = ft.Text("Error de inicio de sesión")
@@ -47,10 +56,12 @@ def show_error_dialog(page):
     error_dialog.open = True
     page.update()
 
+# Función para verificar si el usuario está autenticado
 def user_is_authenticated():
     access_token = token_manager.get_token()
     return access_token is not None
 
+# Función para obtener información del usuario
 def get_user_info(page):
     token_manager.set_token(page.auth.token.access_token)
     user = page.auth.user.id
@@ -74,11 +85,13 @@ def get_user_info(page):
     else:
         show_error_dialog(page)
 
+# Función para el clic del botón de cierre de sesión
 def logout_button_click(e,page):
     page.client_storage.remove(token_manager.get_token())
     page.logout()
     page.go('/')
 
+# Función para obtener las canciones más reproducidas por el usuario
 def get_songs_user(e,page):
     access_token = token_manager.get_token()
     if access_token:
@@ -112,10 +125,12 @@ def get_songs_user(e,page):
     else:
         show_error_dialog(page)
 
+# Función para abrir un enlace de Spotify
 def open_spotify_link(song_id,page):
     spotify_link = f"http://open.spotify.com/track/{song_id}"
     page.launch_url(spotify_link)
 
+# Función para manejar el inicio de sesión
 def log(e, page):
     def on_login(e):
         if e.error:
@@ -127,7 +142,7 @@ def log(e, page):
     page.on_login = on_login
     page.update()
     
-
+# Función para generar recomendaciones de canciones
 def gen_recom(e, page):
     access_token = token_manager.get_token()
     if access_token:
@@ -160,7 +175,7 @@ def gen_recom(e, page):
     else:
         show_error_dialog(page)
 
-# Método para asignar eventos a elementos UI
+# Método para asignar eventos a elementos de la interfaz de usuario
 def events(page):
     buttons.btn_register.on_click = lambda e: log(e,page)
     buttons.btn_gen_recom.on_click = lambda e: gen_recom(e,page)

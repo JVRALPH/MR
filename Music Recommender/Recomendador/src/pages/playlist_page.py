@@ -1,3 +1,7 @@
+
+# En esta sección se configura la página principal de la aplicación con diferentes estilos y elementos visuales.
+
+# Importaciones necesarias
 import flet as ft
 import sys,os
 
@@ -5,10 +9,10 @@ current_directory = os.path.dirname(__file__)
 parent_directory = os.path.abspath(os.path.join(current_directory, os.pardir))
 sys.path.append(parent_directory)
 
-from services import AuthRequest
-from components import txtFields_style as Ctext
-from components import button_style as btns
-from components import DataTables_style as Listas
+from services import AuthRequest # Importa los servicios de autenticación
+from components import txtFields_style as Ctext # Importa estilos para campos de texto
+from components import button_style as btns # Importa estilos para botones
+from components import DataTables_style as Listas  # Importa estilos para tablas
 from flet import *
 from math import pi
 
@@ -16,14 +20,14 @@ from math import pi
 form_songs = Container(
     Stack([
         Column([
-            btns.btn_logout,
-            ft.Text("MUSIC RECORD",text_align="center",font_family="SpaceMono",size=20),
+            btns.btn_logout, # Botón de cierre de sesión
+            ft.Text("MUSIC RECORD",text_align="center",font_family="SpaceMono",size=20),  # Título de la aplicación
             Row([
                 ft.Stack(
                     [
-                        Listas.user_image,
+                        Listas.user_image, # Imagen de usuario
                         ft.Container(
-                            content=ft.CircleAvatar(bgcolor=ft.colors.GREEN, radius=8),
+                            content=ft.CircleAvatar(bgcolor=ft.colors.GREEN, radius=8),# Estado del usuario (círculo verde)
                             alignment=ft.alignment.bottom_left,
                         ),
                     ],
@@ -35,31 +39,34 @@ form_songs = Container(
                     height=200,
                     elevation=20,
                     content=Container(
-                    Listas.list_user_info,
+                    Listas.list_user_info,# Lista de información del usuario
                     alignment=ft.alignment.top_center,
                     ),
                 ),
             ]),
             Divider(color="transparent"),
+            # Botones para obtener canciones y generar recomendaciones
             Row([
                 btns.btn_get_songs,
                 VerticalDivider(color="transparent"),
                 btns.btn_gen_recom,
             ]),
             Divider(color="transparent"),
+            # Títulos de secciones de canciones más escuchadas y recomendadas
             Row([
                 ft.Text("Canciones mas escuchadas",width=600,size=20,font_family="SpaceMono"),
                 VerticalDivider(color="transparent"),
                 ft.Text("Canciones recomendadas",width=600,size=20,font_family="SpaceMono"),
             ]),
             Divider(color="transparent"),
+            # Visualización de canciones más escuchadas y recomendadas en tarjetas
             Row([
                 Card(
                     width=600,
                     height=600,
                     elevation=20,
                     content=Container(
-                        Listas.Col_song1,
+                        Listas.Col_song1,# Columna de canciones más escuchadas
                         alignment=ft.alignment.top_center
                     ),
                 ),
@@ -69,7 +76,7 @@ form_songs = Container(
                     height=600,
                     elevation=20,
                     content=Container(
-                        Listas.Col_song2,
+                        Listas.Col_song2,# Columna de canciones recomendadas
                         alignment=ft.alignment.top_center,
                     ),
                 ),

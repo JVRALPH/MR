@@ -1,3 +1,7 @@
+
+# En esta sección se configura la página principal con diferentes estilos y elementos visuales.
+
+# Importaciones necesarias
 import flet as ft
 import sys,os
 current_directory = os.path.dirname(__file__)
@@ -9,20 +13,23 @@ from components import txtFields_style as Ctext
 from flet import *
 from math import pi
 
-#Estilo page principal
+# Estilo del cuerpo del formulario de la pagina principal
 form_body = Container(
     Container(
         Stack([
+            # Configuración del contenedor con estilo circular y texto de bienvenida
             Container(
                 border_radius=11,
-                rotate=Rotate(0.98*pi), #degree
+                rotate=Rotate(0.98*pi), # Rotación del contenedor
                 width=800,
                 height=800,
-                bgcolor="#11ffffff",
+                bgcolor="#11ffffff",# Color de fondo
             ),
+            # Contenedor principal con texto descriptivo, icono y botón de registro
             Container(
                 Container(
                     Column([
+                        # Icono y título de la aplicación
                         Container(
                             Icon(
                                 ft.icons.LIBRARY_MUSIC_OUTLINED,
@@ -37,6 +44,7 @@ form_body = Container(
                             text_align='center',
                         ),
                         Divider(height=15, color="transparent"),
+                        # Texto descriptivo sobre la aplicación Music Record
                         Text(
                             "Bienvenido a nuestra aplicación MusicRecord es una plataforma diseñada para ofrecer a los usuarios una experiencia personalizada y atractiva al descubrir nueva música y gestionar sus listas de reproducción. Con una integración directa con la plataforma Spotify, permite a los usuarios acceder y explorar una amplia gama de pistas musicales. Nuestro objetivo es ofrecer una experiencia musical personalizada y agradable, permitiendo a los usuarios descubrir nuevas canciones, gestionar sus gustos musicales y disfrutar de una amplia variedad de música de manera intuitiva y fácil.",
                             width=500,
@@ -45,6 +53,7 @@ form_body = Container(
                             size=20,
                             font_family="Raleway"
                         ),
+                        # Botón para ingresar con tu cuenta de Spotify
                         Container(
                             Cbtn.btn_register,
                             padding=padding.only(left=50,right=40,bottom=0),   
@@ -69,6 +78,7 @@ form_body = Container(
     ),
     width=1920,
     height=1080,
+    # Configuración de gradiente radial para el fondo
     gradient=RadialGradient(
         center=Alignment(0,-1.25),
         radius=1.4,
