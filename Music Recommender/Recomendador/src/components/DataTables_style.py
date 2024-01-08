@@ -1,18 +1,32 @@
 import flet as ft
 from flet import *
 
-list_my_songs = ft.ListView(
+user_image=CircleAvatar(
+        radius=150
+)
+
+Col_song1 = Column(    
+        scroll=ft.ScrollMode.ALWAYS,
+)
+Col_song2 = Column(
+        scroll=ft.ScrollMode.ALWAYS,
+)
+
+list_user_info = ft.ListView(
+        auto_scroll=False,
         expand=1, 
-        spacing=15, 
+        spacing=10, 
         padding=20, 
-        auto_scroll=True,
+)
+
+list_my_songs = ft.ListTile(
+        expand=1, 
 )
 
 list_recom = ft.ListView(
         expand=1, 
         spacing=15, 
         padding=20, 
-        auto_scroll=True,
 )
 #Estilo de tabla
 table_info = DataTable( 

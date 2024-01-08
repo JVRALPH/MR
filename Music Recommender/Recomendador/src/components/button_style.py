@@ -3,6 +3,28 @@ from flet import *
 from math import pi
 
     #Estilos de botones
+btn_logout=IconButton(
+    icon=ft.icons.LOGOUT_OUTLINED,
+    icon_color="blue400",
+    icon_size=20,
+    tooltip="Cerrar Sesion",
+)
+btn_get_songs=ElevatedButton(
+    content=Text(
+        "Obtener canciones",
+        color='white',
+    ),
+    style=ButtonStyle(
+        shape=RoundedRectangleBorder(radius=10),
+    ),
+    bgcolor={
+        #ft.MaterialState.DEFAULT:ft.colors.BLACK,
+        ft.MaterialState.DEFAULT:ft.colors.BLACK,   
+        ft.MaterialState.HOVERED:"#080808",     
+    },
+    width=600,
+    height=50,
+)
 
 btn_gen_recom=ElevatedButton(
     content=Text(
@@ -17,7 +39,7 @@ btn_gen_recom=ElevatedButton(
         ft.MaterialState.DEFAULT:ft.colors.BLACK,   
         ft.MaterialState.HOVERED:"#080808",     
     },
-    width=300,
+    width=600,
     height=50,
 )
 
@@ -40,29 +62,13 @@ btn_startSession=ElevatedButton(
 )
 
 btn_register=ElevatedButton(
-    tooltip="Aun no tienes cuenta?, Ingresa con Spotify",
+    tooltip="Click",
     content=Text(
-        "Registrar con spotify",
+        "INGRESAR CON SPOTIFY",
         color='white',
+        size=15,
     ),
-    width=300,
-    height=50,
-    style=ButtonStyle(
-        shape=RoundedRectangleBorder(radius=10),
-    ),
-    bgcolor={
-        ft.MaterialState.DEFAULT:"#199D47",   
-        ft.MaterialState.HOVERED:"#189644",     
-    }
-)
-
-btn_register_i=ElevatedButton(
-    tooltip="Aun no tienes cuenta?, Ingresa con Spotify",
-    content=Text(
-        "Registrar",
-        color='white',
-    ),
-    width=300,
+    width=400,
     height=50,
     style=ButtonStyle(
         shape=RoundedRectangleBorder(radius=10),

@@ -12,50 +12,72 @@ from components import DataTables_style as Listas
 from flet import *
 from math import pi
 
-
 #Estilo page principal
 form_songs = Container(
     #Ctext.user_name_log,
     Stack([
         Column([
+            ft.Text("MUSIC RECORD",text_align="center",font_family="SpaceMono",size=20),
             Row([
-                Container(
-                    content=Card(
-                        width=600,
-                        height=600,
-                        elevation=20,
-                        content=Container(
-                            Column([
-                                Ctext.user_name_log,
-                                Listas.list_my_songs,
-                            ],
-                            alignment=ft.alignment.top_center),
-                            padding=padding.only(left=50,top=15),
+                ft.Stack(
+                    [
+                        Listas.user_image,
+                        ft.Container(
+                            content=ft.CircleAvatar(bgcolor=ft.colors.GREEN, radius=8),
+                            alignment=ft.alignment.bottom_left,
                         ),
+                    ],
+                    width=100,
+                    height=100,
+                ),
+                Card(
+                    width=1130,
+                    height=200,
+                    elevation=20,
+                    content=Container(
+                    Listas.list_user_info,
+                    alignment=ft.alignment.top_center,
                     ),
                 ),
-                ft.VerticalDivider(color="transparent"),
-                Container(
-                    #offset=transform.Offset(0,0),
-                    #animate_offset=animation.Animation(900),
-                    content=Card(
-                        width=600,
-                        height=600,
-                        elevation=20,
-                        content=Container(
-                            Column([
-                                btns.btn_gen_recom,
-                                Listas.list_recom,
-                            ],
-                            alignment=ft.alignment.top_center),
-                            padding=padding.only(left=50,top=15),
-                        ),
-                    )
+            ]),
+            Divider(color="transparent"),
+            Row([
+                btns.btn_get_songs,
+                VerticalDivider(color="transparent"),
+                btns.btn_gen_recom,
+            ]),
+            Divider(color="transparent"),
+            Row([
+                ft.Text("Canciones mas escuchadas",width=600,size=20,font_family="SpaceMono"),
+                VerticalDivider(color="transparent"),
+                ft.Text("Canciones recomendadas",width=600,size=20,font_family="SpaceMono"),
+            ]),
+            Divider(color="transparent"),
+            Row([
+                Card(
+                    width=600,
+                    height=600,
+                    elevation=20,
+                    content=Container(
+                        Listas.Col_song1,
+                        alignment=ft.alignment.top_center
+                    ),
+                ),
+                VerticalDivider(color="transparent"),
+                Card(
+                    width=600,
+                    height=600,
+                    elevation=20,
+                    content=Container(
+                        Listas.Col_song2,
+                        alignment=ft.alignment.top_center,
+                    ),
                 ),
             ]),
+            Divider(visible=False,height=15)
         ]),
     ]),
-    padding=80,
+    padding=padding.only(bottom=200,left=50,top=15),
     width=1920,
     height=1080,
     gradient=RadialGradient(

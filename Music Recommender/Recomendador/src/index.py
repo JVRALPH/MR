@@ -7,12 +7,10 @@ sys.path.append(parent_directory)
 from components import pagesettings_style as Psett
 from pages import index_page
 from pages import playlist_page
-from pages import register_page
-from services import IPManager
+from services import EventMan
 from flet import *
 
 def main(page: Page):
-
     page.fonts = {
         "Raleway" : "fonts/Raleway-Regular.ttf",
         "SpaceMono" : "fonts/SpaceMono-Bold.ttf"
@@ -28,18 +26,6 @@ def main(page: Page):
                 scroll='ADAPTIVE',
                 controls=[
                     index_page.form_body,
-                ]
-            )
-        )
-        if page.route == '/register':
-            page.views.append(
-                View(
-                route='/',
-                padding=0,
-                scroll='ADAPTIVE',
-                controls=[
-                    #AppBar(title=Text('Regresar'), bgcolor='black', toolbar_height=40),
-                    register_page.form_body,
                 ]
             )
         )
@@ -64,13 +50,12 @@ def main(page: Page):
         # Navega de regreso a la vista superior
         top_view = page.views[-1]
         page.go(top_view.route)
-
     # Asigna las funciones de cambio de ruta y navegación a eventos específicos de la página
     page.on_route_change = route_change
     page.on_view_pop = view_pop
     # Navega a la ruta actual
     page.go(page.route)
     Psett.page_settings(page)
-    IPManager.events(page)
+    EventMan.events(page)
 
 ft.app(target=main,assets_dir='assets',view=WEB_BROWSER,port=8550)

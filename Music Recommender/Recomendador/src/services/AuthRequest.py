@@ -17,11 +17,12 @@ def search_artist_most_played(token_type,token):
     
     return nombres_artistas
 
-def search_tracks_most_played(token_type,token):
-    url="https://api.spotify.com/v1/me/top/tracks"
+
+def search_tracks_most_played(token_type, token):
+    url = "https://api.spotify.com/v1/me/top/tracks"
     headers = get_auth_header(token)
-    query = f"?&limit=10"
-    query_url = url+query
+    query = f"?limit=10"
+    query_url = url + query
     result = get(query_url, headers=headers)
     json_result = json.loads(result.content)
 
@@ -30,8 +31,22 @@ def search_tracks_most_played(token_type,token):
         nombre_cancion = item['name']
         artistas = ', '.join(artist['name'] for artist in item['artists'])
         cancion_artista = f"{nombre_cancion} - {artistas}"
-        canciones_artistas.append(cancion_artista)
+        
+        if item.get('album') and item['album'].get('images'):
+            image_url = item['album']['images'][0]['url']
+        else:
+            image_url = None
+        cancion_id = item['id'] 
+        canciones_artistas.append({
+            'cancion_artista': cancion_artista,
+            'image_url': image_url,
+            'id': cancion_id
+        })
+
     return canciones_artistas
+
+
+
 
 def search_user_saved_tracks(token_type,token):
     url="https://api.spotify.com/v1/me/tracks"
@@ -55,11 +70,19 @@ def gen_recom_tracks(token_type, token):
     for track in json_result['tracks']:
         song_name = track['name']
         artists = ', '.join(artist['name'] for artist in track['artists'])
-        song_details.append(f"{song_name} - {artists}")
+        if track.get('album') and track['album'].get('images'):
+            image_url = track['album']['images'][0]['url']
+        else:
+            image_url = None
+        song_id = track['id']
+
+        song_details.append({
+            'cancion_artista': f"{song_name} - {artists}",
+            'image_url': image_url,
+            'id': song_id 
+        })
     
     return song_details
-
-
 
 def get_track_seeds(token_type, token):
     url = "https://api.spotify.com/v1/me/top/tracks"
@@ -80,3 +103,25 @@ def get_track_seeds(token_type, token):
     track_ids_str = ','.join(track_ids)
     return track_ids_str
 
+def get_user_info(token_type, token, user_id):
+    url = f"https://api.spotify.com/v1/users/{user_id}"
+    headers = get_auth_header(token)
+    result = get(url, headers=headers)
+    
+    if result.status_code == 200:
+        json_result = result.json()
+        user_info = {
+            'display_name': json_result.get('display_name', ''),
+            'user_id': json_result.get('id', ''),
+            'followers': json_result.get('followers', {}).get('total', 0),
+        }
+        images = json_result.get('images', [])
+        images_list = []
+        if images:
+            images_list.append(images[0]['url'])
+        
+        user_info['images'] = images_list
+        return [user_info]
+    else:
+        print(f"Failed to get user info. Status code: {result.status_code}")
+        return None
