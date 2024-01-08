@@ -14,9 +14,9 @@ from math import pi
 
 #Estilo page principal
 form_songs = Container(
-    #Ctext.user_name_log,
     Stack([
         Column([
+            btns.btn_logout,
             ft.Text("MUSIC RECORD",text_align="center",font_family="SpaceMono",size=20),
             Row([
                 ft.Stack(
