@@ -37,17 +37,20 @@ def main(page: Page):
         )
         # Añade la vista para la página de lista de reproducción (playlist_page)
         if page.route == '/playlist':
-            page.views.append(
-                View(
-                    route='/',
-                    padding=0,
-                    scroll='ADAPTIVE',
-                    controls=[
-                        #AppBar(title=Text('Regresar'), bgcolor='black', toolbar_height=40),
-                        playlist_page.form_songs,
-                    ]
+            if EventMan.user_is_authenticated():
+                page.views.append(
+                    View(
+                        route='/',
+                        padding=0,
+                        scroll='ADAPTIVE',
+                        controls=[
+                            #AppBar(title=Text('Regresar'), bgcolor='black', toolbar_height=40),
+                            playlist_page.form_songs,
+                        ]
+                    )
                 )
-            )
+            else:
+                page.go("/")
         # Actualiza la página con las nuevas vistas
         page.update()
 

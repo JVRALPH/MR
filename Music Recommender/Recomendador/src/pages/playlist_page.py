@@ -13,6 +13,8 @@ from services import AuthRequest # Importa los servicios de autenticación
 from components import txtFields_style as Ctext # Importa estilos para campos de texto
 from components import button_style as btns # Importa estilos para botones
 from components import DataTables_style as Listas  # Importa estilos para tablas
+from components import Column_style as columna
+from components import Avatar_style as avatar
 from flet import *
 from math import pi
 
@@ -25,9 +27,9 @@ form_songs = Container(
             Row([
                 ft.Stack(
                     [
-                        Listas.user_image, # Imagen de usuario
+                        avatar.user_image, # Imagen de usuario
                         ft.Container(
-                            content=ft.CircleAvatar(bgcolor=ft.colors.GREEN, radius=8),# Estado del usuario (círculo verde)
+                            content=avatar.user_state,# Estado del usuario (círculo verde)
                             alignment=ft.alignment.bottom_left,
                         ),
                     ],
@@ -66,7 +68,7 @@ form_songs = Container(
                     height=600,
                     elevation=20,
                     content=Container(
-                        Listas.Col_song1,# Columna de canciones más escuchadas
+                        columna.Col_song1,# Columna de canciones más escuchadas
                         alignment=ft.alignment.top_center
                     ),
                 ),
@@ -76,7 +78,7 @@ form_songs = Container(
                     height=600,
                     elevation=20,
                     content=Container(
-                        Listas.Col_song2,# Columna de canciones recomendadas
+                        columna.Col_song2,# Columna de canciones recomendadas
                         alignment=ft.alignment.top_center,
                     ),
                 ),

@@ -6,6 +6,11 @@ from math import pi
 
 # Estilos de botones
 # Botón para cerrar sesión
+
+btn_fav = ft.IconButton(
+    icon=ft.icons.FAVORITE_OUTLINE_OUTLINED, 
+),
+
 btn_logout = IconButton(
     icon=ft.icons.LOGOUT_OUTLINED,
     icon_color="blue400",

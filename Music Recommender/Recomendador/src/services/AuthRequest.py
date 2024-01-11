@@ -12,7 +12,7 @@ def get_auth_header(token):
     return {"Authorization": "Bearer " + token}
 
 # Busca los artistas más reproducidos por el usuario.
-def search_artist_most_played(token_type,token):
+def search_artist_most_played(token):
     url="https://api.spotify.com/v1/me/top/artists"
     headers = get_auth_header(token)
     query = f"?&limit=10"
@@ -24,7 +24,7 @@ def search_artist_most_played(token_type,token):
     return nombres_artistas
 
 # Busca las canciones más reproducidas por el usuario.
-def search_tracks_most_played(token_type, token):
+def search_tracks_most_played(token):
     url = "https://api.spotify.com/v1/me/top/tracks"
     headers = get_auth_header(token)
     query = f"?limit=10"
@@ -60,33 +60,37 @@ def search_user_saved_tracks(token_type,token):
     print(json_result)
 
 # Genera recomendaciones de canciones para el usuario.
-def gen_recom_tracks(token_type, token):
+def gen_recom_tracks(token):
     headers = get_auth_header(token)
     url = "https://api.spotify.com/v1/recommendations"
-    id_songs = get_track_seeds(token_type, token)
+    id_songs = get_track_seeds(token)
     query = f"?&limit=10&seed_tracks="
     query_url = url + query + id_songs
     result = get(query_url, headers=headers)
-    json_result = json.loads(result.content)
-    song_details = []
-    for track in json_result['tracks']:
-        song_name = track['name']
-        artists = ', '.join(artist['name'] for artist in track['artists'])
-        if track.get('album') and track['album'].get('images'):
-            image_url = track['album']['images'][0]['url']
-        else:
-            image_url = None
-        song_id = track['id']
+    if result.status_code == 200 and result.content:
+        json_result = json.loads(result.content)
+        song_details = []
+        for track in json_result['tracks']:
+            song_name = track['name']
+            artists = ', '.join(artist['name'] for artist in track['artists'])
+            if track.get('album') and track['album'].get('images'):
+                image_url = track['album']['images'][0]['url']
+            else:
+                image_url = None
+            song_id = track['id']
 
-        song_details.append({
-            'cancion_artista': f"{song_name} - {artists}",
-            'image_url': image_url,
-            'id': song_id 
-        })
-    return song_details
+            song_details.append({
+                'cancion_artista': f"{song_name} - {artists}",
+                'image_url': image_url,
+                'id': song_id 
+            })
+        return song_details
+    else:
+        print("Error en json")
+        print(result)
 
 # Obtiene las 'semillas' de canciones para generar recomendaciones.
-def get_track_seeds(token_type, token):
+def get_track_seeds(token):
     url = "https://api.spotify.com/v1/me/top/tracks"
     headers = get_auth_header(token)
     query = f"?&limit=10"
@@ -103,7 +107,7 @@ def get_track_seeds(token_type, token):
     return track_ids_str
 
 # Obtiene información del usuario desde la API de Spotify.
-def get_user_info(token_type, token, user_id):
+def get_user_info(token, user_id):
     url = f"https://api.spotify.com/v1/users/{user_id}"
     headers = get_auth_header(token)
     result = get(url, headers=headers)
