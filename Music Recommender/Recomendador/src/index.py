@@ -10,7 +10,7 @@ sys.path.append(parent_directory)
 from components import pagesettings_style as Psett
 from pages import index_page
 from pages import playlist_page
-from services import EventMan
+from services import EventMan as evt
 from flet import *
 
 # Definición de la función principal
@@ -37,7 +37,7 @@ def main(page: Page):
         )
         # Añade la vista para la página de lista de reproducción (playlist_page)
         if page.route == '/playlist':
-            if EventMan.user_is_authenticated():
+            if evt.EventMan.user_is_authenticated():
                 page.views.append(
                     View(
                         route='/',
@@ -63,8 +63,8 @@ def main(page: Page):
     page.on_route_change = route_change
     page.on_view_pop = view_pop
     page.go(page.route) # Navega a la ruta actual
-    Psett.page_settings(page)
-    EventMan.events(page) # Asignación de eventos a elementos de la interfaz de usuario
+    event_manager = evt.EventMan(page)
+    event_manager.events() # Asignación de eventos a elementos de la interfaz de usuario
 
 # Inicia la aplicación Flet
 ft.app(target=main,assets_dir='assets',view=WEB_BROWSER,port=8550)

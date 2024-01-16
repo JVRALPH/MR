@@ -62,10 +62,11 @@ def search_user_saved_tracks(token_type,token):
 # Genera recomendaciones de canciones para el usuario.
 def gen_recom_tracks(token):
     headers = get_auth_header(token)
+    max_pop="&max_popularity=20"
     url = "https://api.spotify.com/v1/recommendations"
     id_songs = get_track_seeds(token)
     query = f"?&limit=10&seed_tracks="
-    query_url = url + query + id_songs
+    query_url = url + query + id_songs+max_pop
     result = get(query_url, headers=headers)
     if result.status_code == 200 and result.content:
         json_result = json.loads(result.content)
